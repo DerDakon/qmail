@@ -729,7 +729,8 @@ I tried to deliver a bounce message to this address, but the bounce bounced!\n\
        qmail_fail(&qqt);
     }
 
-   qmail_puts(&qqt,*sender.s ? "--- Below this line is a copy of the message.\n\n" : "--- Below this line is the original bounce.\n\n");
+   qmail_puts(&qqt,*sender.s ? "--- Below this line is a copy of the first 32 KiB of the message.\n\n" :
+		"--- Below this line are the first 32 KiB of the original bounce.\n\n");
    qmail_puts(&qqt,"Return-Path: <");
    while (!quote2(&quoted,sender.s)) nomem();
    qmail_put(&qqt,quoted.s,quoted.len);
@@ -738,11 +739,13 @@ I tried to deliver a bounce message to this address, but the bounce bounced!\n\
    fd = open_read(fn.s);
    if (fd == -1)
      qmail_fail(&qqt);
-   else
-    {
+   else {
+     unsigned char ms = 255;
      substdio_fdbuf(&ssread,read,fd,inbuf,sizeof(inbuf));
-     while ((r = substdio_get(&ssread,buf,sizeof(buf))) > 0)
+     while ( ((r = substdio_get(&ssread,buf,sizeof(buf))) > 0) && (ms)) {
        qmail_put(&qqt,buf,r);
+       ms--;
+     }
      close(fd);
      if (r == -1)
        qmail_fail(&qqt);
