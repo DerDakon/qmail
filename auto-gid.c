@@ -41,7 +41,7 @@ char **argv;
 
   strnum[fmt_ulong(strnum,(unsigned long) gr->gr_gid)] = 0;
 
-  outs("int ");
+  outs("gid_t ");
   outs(name);
   outs(" = ");
   outs(strnum);

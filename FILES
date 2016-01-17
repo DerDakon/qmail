@@ -420,7 +420,6 @@ prot.h
 prot.c
 chkshsgr.c
 warn-shsgr
-tryshsgr.c
 ipme.h
 ipme.c
 trysalen.c

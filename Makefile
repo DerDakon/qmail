@@ -112,7 +112,8 @@ compile auto_split.c
 
 auto_uids.c: \
 auto-uid auto-gid conf-users conf-groups
-	( ./auto-uid auto_uida `head -1 conf-users` \
+	( echo '#include "auto_uids.h"' && \
+	./auto-uid auto_uida `head -1 conf-users` \
 	&&./auto-uid auto_uidd `head -2 conf-users | tail -1` \
 	&&./auto-uid auto_uidl `head -3 conf-users | tail -1` \
 	&&./auto-uid auto_uido `head -4 conf-users | tail -1` \
@@ -676,15 +677,6 @@ trysgprm.c compile load
 	&& echo \#define HASSIGPROCMASK 1 || exit 0 ) > hassgprm.h
 	rm -f trysgprm.o trysgprm
 
-hasshsgr.h: \
-chkshsgr warn-shsgr tryshsgr.c compile load
-	./chkshsgr || ( cat warn-shsgr; exit 1 )
-	( ( ./compile tryshsgr.c \
-	&& ./load tryshsgr && ./tryshsgr ) >/dev/null 2>&1 \
-	&& echo \#define HASSHORTSETGROUPS 1 || exit 0 ) > \
-	hasshsgr.h
-	rm -f tryshsgr.o tryshsgr
-
 haswaitp.h: \
 trywaitp.c compile load
 	( ( ./compile trywaitp.c && ./load trywaitp ) >/dev/null \
@@ -1047,7 +1039,8 @@ proc+df.sh conf-qmail
 	chmod 755 proc+df
 
 prot.o: \
-compile prot.c hasshsgr.h prot.h
+compile prot.c prot.h chkshsgr warn-shsgr
+	./chkshsgr || ( cat warn-shsgr; exit 1 )
 	./compile prot.c
 
 qail: \
@@ -1826,7 +1819,7 @@ datetime.3 datetime.h datetime.c datetime_un.c prioq.h prioq.c \
 date822fmt.h date822fmt.c dns.h dns.c trylsock.c tryrsolv.c ip.h ip.c \
 ipalloc.h ipalloc.c select.h1 select.h2 trysysel.c ndelay.h ndelay.c \
 ndelay_off.c direntry.3 direntry.h1 direntry.h2 trydrent.c prot.h \
-prot.c chkshsgr.c warn-shsgr tryshsgr.c ipme.h ipme.c trysalen.c \
+prot.c chkshsgr.c warn-shsgr ipme.h ipme.c trysalen.c \
 maildir.5 maildir.h maildir.c tcp-environ.5 constmap.h constmap.c
 	shar -m `cat FILES` > shar
 	chmod 400 shar

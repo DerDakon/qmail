@@ -1,3 +1,4 @@
+20160117 use gid_t and uid_t
 20160117 use stdint.h to get the definition for uint32
 20110304 to not parse mail header in qmail-inject if -a is given
 20050221 limit bounce size to 32kiB
