@@ -1808,8 +1808,8 @@ stralloc_cats.c stralloc_arts.c strerr.h strerr_sys.c strerr_die.c \
 substdio.h substdio.c substdi.c substdo.c substdio_copy.c subfd.h \
 subfderr.c subfdouts.c subfdout.c subfdins.c subfdin.c readwrite.h \
 exit.h timeoutconn.h timeoutconn.c timeoutread.h timeoutread.c \
-timeoutwrite.h timeoutwrite.c remoteinfo.h remoteinfo.c uint32.h1 \
-uint32.h2 tryulong32.c wait.3 wait.h wait_pid.c wait_nohang.c \
+timeoutwrite.h timeoutwrite.c remoteinfo.h remoteinfo.c uint32.h \
+wait.3 wait.h wait_pid.c wait_nohang.c \
 trywaitp.c sig.h sig_alarm.c sig_block.c sig_catch.c sig_pause.c \
 sig_pipe.c sig_child.c sig_term.c sig_hup.c sig_misc.c sig_bug.c \
 trysgact.c trysgprm.c env.3 env.h env.c envread.c byte.h byte_chr.c \
@@ -2120,13 +2120,6 @@ compile trigger.c select.h open.h trigger.h hasnpbg1.h
 triggerpull.o: \
 compile triggerpull.c ndelay.h open.h triggerpull.h
 	./compile triggerpull.c
-
-uint32.h: \
-tryulong32.c compile load uint32.h1 uint32.h2
-	( ( ./compile tryulong32.c && ./load tryulong32 && \
-	./tryulong32 ) >/dev/null 2>&1 \
-	&& cat uint32.h2 || cat uint32.h1 ) > uint32.h
-	rm -f tryulong32.o tryulong32
 
 wait.a: \
 makelib wait_pid.o wait_nohang.o

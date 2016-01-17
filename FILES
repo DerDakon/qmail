@@ -308,9 +308,7 @@ timeoutwrite.h
 timeoutwrite.c
 remoteinfo.h
 remoteinfo.c
-uint32.h1
-uint32.h2
-tryulong32.c
+uint32.h
 wait.3
 wait.h
 wait_pid.c
