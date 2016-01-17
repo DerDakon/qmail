@@ -586,13 +586,6 @@ forgeries.0: \
 forgeries.7
 	nroff -man forgeries.7 > forgeries.0
 
-fork.h: \
-compile load tryvfork.c fork.h1 fork.h2
-	( ( ./compile tryvfork.c && ./load tryvfork ) >/dev/null \
-	2>&1 \
-	&& cat fork.h2 || cat fork.h1 ) > fork.h
-	rm -f tryvfork.o tryvfork
-
 forward: \
 load forward.o qmail.o strerr.a alloc.a fd.a wait.a sig.a env.a \
 substdio.a error.a str.a fs.a auto_qmail.o
@@ -1791,7 +1784,7 @@ case_diffb.c case_diffs.c case_lowerb.c case_lowers.c case_starts.c \
 cdb.3 cdb.h cdb_hash.c cdb_seek.c cdb_unpack.c cdbmake.h \
 cdbmake_add.c cdbmake_hash.c cdbmake_pack.c cdbmss.h cdbmss.c coe.3 \
 coe.h coe.c fd.h fd_copy.3 fd_copy.c fd_move.3 fd_move.c fifo_make.3 \
-fifo.h fifo.c trymkffo.c fork.h1 fork.h2 tryvfork.c now.3 now.h now.c \
+fifo.h fifo.c trymkffo.c fork.h now.3 now.h now.c \
 open.h open_append.c open_excl.c open_read.c open_trunc.c \
 open_write.c seek.h seek_cur.c seek_end.c seek_set.c seek_trunc.c \
 conf-qmail auto_qmail.h qmail.h qmail.c gen_alloc.h gen_allocdefs.h \

@@ -250,9 +250,7 @@ fifo_make.3
 fifo.h
 fifo.c
 trymkffo.c
-fork.h1
-fork.h2
-tryvfork.c
+fork.h
 now.3
 now.h
 now.c
